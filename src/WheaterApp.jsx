@@ -21,7 +21,7 @@ export const WheaterApp = () => {
     const fetchClima = async () => {
         try {
 
-            const response = await fetch(`${urlBase}?q=${ciudad}&appid=${API_KEY}`)
+            const response = await fetch(`${urlBase}?q=${ciudad}&appid=${API_KEY}&lang=es`)
             const data = await response.json()
             setDataClima(data)
 
@@ -34,18 +34,19 @@ export const WheaterApp = () => {
 
   return (
     <div className="container">
-        <h1>Aplicacion de Clima</h1>
+        <h1>weather app</h1>
 
         <form onSubmit={handleSubmit}>
             <input type="text" value={ciudad} onChange={handleCambioCiudad}/>
-            <button type="submit"> Buscar</button>
+            <button type="submit"> Search</button>
         </form>
         {
             dataClima && (
                 <div>
+                    <h1>{dataClima.sys.country}</h1>
                     <h2>{dataClima.name}</h2>
                     <p>Temperatura: {parseInt(dataClima?.main.temp - difKelvin)}°C</p>
-                    <p>Condición meteorológica: {dataClima.weather[0].description}</p>
+                    <p>Condicion Meteorológica: {dataClima.weather[0].description}</p>
                     <img src={`https://openweathermap.org/img/wn/${dataClima.weather[0].icon}@2x.png`} />
                 </div>
             )
